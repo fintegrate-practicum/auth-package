@@ -57,7 +57,8 @@ const validateToken = async (token) => {
 };
 
 // Check permissions function
-const checkPermissions = async (userId, action) => {
+const checkPermissions = async (req, action) => {
+    const userId = req.user.sub; // שליפת userId מתוך req.user
     try {
         const response = await axios.post(`https://${AUTH0_DOMAIN}/api/v2/users/${userId}/permissions`, {
             action
@@ -67,5 +68,6 @@ const checkPermissions = async (userId, action) => {
         return false;
     }
 };
+
 
 module.exports = AuthMiddleware;
