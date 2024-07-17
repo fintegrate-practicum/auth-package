@@ -1,6 +1,6 @@
-import { User } from './user.type'; 
+import { UserP } from './user.type'; 
 
 export interface IUserService {
-    getUserById(userId: string): Promise<User>;
+    getUserById(userId: string): Promise<UserP>;
    
 }

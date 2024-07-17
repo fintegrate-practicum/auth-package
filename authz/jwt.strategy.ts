@@ -3,7 +3,7 @@ import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
 import { passportJwtSecret } from "jwks-rsa";
 import { IUserService } from '../interfaces/user.service.interface';
-import {User} from '../interfaces/user.type'
+
 
 
 @Injectable()
