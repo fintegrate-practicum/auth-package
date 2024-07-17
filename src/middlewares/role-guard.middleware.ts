@@ -1,4 +1,3 @@
-// src/common/middleware/roles.middleware.ts
 import { Injectable, NestMiddleware, UnauthorizedException, ForbiddenException } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { Reflector } from '@nestjs/core';
@@ -9,7 +8,7 @@ export class RolesMiddleware implements NestMiddleware {
         private readonly reflector: Reflector,
     ) { }
 
-    async use(req: Request, res: Response, next: NextFunction) {
+    async use(req: any, res: Response, next: NextFunction) {
         const user = req.user;
         if (!user) {
             throw new UnauthorizedException('No user information available');
