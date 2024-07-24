@@ -1,6 +1,12 @@
-
+// index.ts
 export * from './authz/authz.module';
 export * from './authz/jwt.strategy';
+ 
+ // מייבא את האסטרטגיה שלך אם נדרש
+
+// export * from './authz/jwt.strategy';
+// export * from './interfaces/user.service.interface';
+// export * from './interfaces/user.type';
 
 
 // const jwt = require('jsonwebtoken');

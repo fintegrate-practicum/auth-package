@@ -1,10 +1,16 @@
 {
   "name": "fintegrate-auth",
-  "version": "1.0.5",
-  "main": "index.ts",
+  "version": "1.0.7",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "type": "commonjs",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsc",
     "start": "ts-node src/index.ts",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -15,10 +21,11 @@
   "private": false,
   "description": "The Auth package provides tools and mechanisms for managing and authenticating user identity",
   "devDependencies": {
+    "@types/jest": "^29.5.12",
     "@types/node": "^20.14.10",
     "@types/passport-jwt": "^4.0.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.4"
   },
   "peerDependencies": {
     "@nestjs/common": "^10.3.10",
