@@ -2,6 +2,8 @@ import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
 import { passportJwtSecret } from "jwks-rsa";
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -24,7 +26,10 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
+    console.log(    "😍😍😍😍😍😍😍😍😍😍😍   "+process.env.AUTH0_AUDIENCE    );
+    
     const { aud, sub } = payload;
+    console.log("in jj jj  "+ process.env.AUTH0_AUDIENCE);
     if (typeof aud !== "string" && aud.length > 0) {
       if (!aud.includes(process.env.AUTH0_AUDIENCE)) {
         throw new HttpException("Invalid audience.", HttpStatus.UNAUTHORIZED);
