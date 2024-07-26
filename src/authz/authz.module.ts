@@ -1,10 +1,16 @@
-import { Module } from "@nestjs/common";
+import { Module, DynamicModule } from "@nestjs/common";
 import { JwtStrategy } from "./jwt.strategy";
 import { PassportModule } from "@nestjs/passport";
 
-@Module({
-  imports: [PassportModule.register({ defaultStrategy: "jwt" })],
-  providers: [JwtStrategy],
-  exports: [PassportModule],
-})
-export class AuthzModule {}
+@Module({})
+export class AuthzModule {
+  static register(hello:string): DynamicModule {
+    console.log("hello: " + hello);
+    return {
+      module: AuthzModule,
+      imports: [PassportModule.register({ defaultStrategy: "jwt" })],
+      providers: [JwtStrategy],
+      exports: [PassportModule],
+    };
+  }
+}
