@@ -1,6 +1,9 @@
 import { JwtStrategy } from './jwt.strategy';
 import { HttpException, HttpStatus } from '@nestjs/common';
 
+process.env.AUTH0_AUDIENCE = 'expected-audience';
+process.env.AUTH0_ISSUER_BASE_URL = 'https://issuer.example.com/';
+
 describe('JwtStrategy', () => {
   let jwtStrategy: JwtStrategy;
 
