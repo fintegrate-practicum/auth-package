@@ -1,6 +1,6 @@
 {
   "name": "fintegrate-auth",
-  "version": "1.0.13",
+  "version": "1.0.98",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -36,6 +36,8 @@
     "passport-jwt": "^4.0.1"
   },
   "dependencies": {
-    "fintegrate-auth": "^1.0.13"
+    "@nestjs/axios": "^3.0.2",
+    "@nestjs/config": "^3.2.3",
+    "dotenv": "^16.4.5"
   }
 }

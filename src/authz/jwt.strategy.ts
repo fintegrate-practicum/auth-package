@@ -1,11 +1,15 @@
-import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import { HttpException, HttpStatus, Inject, Injectable, Provider } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
 import { passportJwtSecret } from "jwks-rsa";
+import {UserService} from '../user/user.service'
+// import {MODULE_OPTIONS_TOKEN} from './authz.module-definition'
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor() {
+  //private readonly  iUserService:IUserService
+  constructor(private  userService:UserService){
+
     const config = {
       secretOrKeyProvider: passportJwtSecret({
         cache: true,
@@ -22,9 +26,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     };
     super(config);
   }
-
   async validate(payload: any) {
+    //console.log(this.userService);
     const { aud, sub } = payload;
+    console.log('sub',sub)
+    console.log('aud',aud)
     if (typeof aud !== "string" && aud.length > 0) {
       if (!aud.includes(process.env.AUTH0_AUDIENCE)) {
         throw new HttpException("Invalid audience.", HttpStatus.UNAUTHORIZED);
@@ -32,6 +38,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     } else if (aud !== process.env.AUTH0_AUDIENCE) {
       throw new HttpException("Invalid audience.", HttpStatus.UNAUTHORIZED);
     }
-    return { id: sub };
+    console.log('sub',sub)
+    console.log('aud',aud)
+    const user =await this.userService.getUserById(sub);
+    console.log("user: ",user)
+    console.log("sub: ",sub)
+    console.log("id::::::",sub)
+    if(user)
+      return user
+    return { id: sub};
   }
 }
