@@ -4,6 +4,9 @@ import { HttpException, HttpStatus } from '@nestjs/common';
 import { of } from 'rxjs';
 import { AxiosResponse } from 'axios';
 
+process.env.AUTH0_AUDIENCE = 'expected-audience';
+process.env.AUTH0_ISSUER_BASE_URL = 'https://issuer.example.com/';
+
 describe('JwtStrategy', () => {
   let jwtStrategy: JwtStrategy;
   let httpService: HttpService;
