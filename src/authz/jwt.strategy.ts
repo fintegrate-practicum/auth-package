@@ -9,9 +9,6 @@ import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-
-  private readonly workersServiceUrl
-
   constructor(
     private readonly httpService: HttpService,
   ) {
@@ -30,7 +27,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       algorithms: ["RS256"],
     };
     super(config);
-    this.workersServiceUrl = process.env.VITE_DOCKER_WORKERS_SERVER_URL;
   }
 
   async validate(payload: any) {
@@ -44,8 +40,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       throw new HttpException("Invalid audience.", HttpStatus.UNAUTHORIZED);
     }
     try {
+      const serverUrl = process.env.VITE_DOCKER_WORKERS_SERVER_URL;
       const response: AxiosResponse = await firstValueFrom(
-        this.httpService.get<User>(`${this.workersServiceUrl}/user/${sub}`)
+        this.httpService.get<User>(`${serverUrl}/user/${sub}`)
       );
       const user: User = response?.data.data;
       return user;
