@@ -1,20 +1,29 @@
 ﻿>>Title: Created and Published a New Package
 ---
 
-Installation and Usage of fintegrate-auth
-Installation
-To install the package, run:
+# `fintegrate-auth`
 
-bash
-Copy code
-npm i fintegrate-auth@1.0.122
-Usage
-Import the module: Ensure authz is imported from fintegrate-auth/.
-Apply the guard: Use @UseGuards(AuthGuard('jwt')) in your controller.
-The package provides:
+## Installation
 
-Token Verification: Validates the token.
-User Data Injection: Adds user data to request for use in controllers.
+To install the package, use the following command:
+
+```bash
+npm install fintegrate-auth@1.0.122
+```
+## Usage
+
+### Apply the Guard
+
+Use the `@UseGuards(AuthGuard('jwt'))` decorator in your controller to protect routes.
+
+### Access User Data
+
+After applying the guard, you can access the user data in your controller through `req.user`.
+
+### Features
+
+- **Token Verification**: Validates the JWT token provided in the request.
+- **User Data Injection**: Injects user data into the request object for use in controllers.
 
 
 Created a new package using TypeScript for the NestJS project.
