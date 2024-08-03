@@ -1,6 +1,3 @@
-﻿>>Title: Created and Published a New Package
----
-
 # `fintegrate-auth`
 
 ## Installation
