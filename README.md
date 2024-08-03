@@ -1,9 +1,21 @@
 ﻿>>Title: Created and Published a New Package
 ---
 
->>Description:
+Installation and Usage of fintegrate-auth
+Installation
+To install the package, run:
 
-To install the package, use the command npm i fintegrate-auth.
+bash
+Copy code
+npm i fintegrate-auth@1.0.122
+Usage
+Import the module: Ensure authz is imported from fintegrate-auth/.
+Apply the guard: Use @UseGuards(AuthGuard('jwt')) in your controller.
+The package provides:
+
+Token Verification: Validates the token.
+User Data Injection: Adds user data to request for use in controllers.
+
 
 Created a new package using TypeScript for the NestJS project.
 Configured the package to include JwtStrategy and AuthzModule.
