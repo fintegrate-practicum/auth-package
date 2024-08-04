@@ -8,25 +8,57 @@ To install the package, use the following command:
 npm install fintegrate-auth@1.0.122
 ```
 ## Usage
-Environment Variable
-Before using the package, make sure to add the following environment variable in your project:
+make sure to add the following environment variable in your project:
 
 ```bash
 VITE_DOCKER_WORKERS_SERVER_URL=http://host.docker.internal:4006
 ```
 
-### Apply the Guard
+
+
+###  Authenticate the user:
 
 Use the `@UseGuards(AuthGuard('jwt'))` decorator in your controller to protect routes.
 
-### Access User Data
 
-After applying the guard, you can access the user data in your controller through `req.user`.
+
+### Authorization by user role:
+
+use the `@Roles` decorator, write the allow roles, according to the Role enum. 
+
+add `RolesGuard` in the UseGuards decorator. 
+
+
+make sure to import the above:
+
+```bash
+import { Role, Roles, RolesGuard } from "fintegrate-auth";
+
+```
+
+
+This ensures that only users with the appropriate roles can access certain routes.
+
+#### Eg:
+<pre>@Roles(Role.Admin)<br>
+@UseGuards(AuthGuard('jwt'), RolesGuard)</pre>
+
+
+**Note**: Role management is not yet available for general use (in testing).
+
 
 ### Features
 
 - **Token Verification**: Validates the JWT token provided in the request.
 - **User Data Injection**: Injects user data into the request object for use in controllers.
+- **Role-based Access Control**: Ensures that only users with the specified roles can access certain routes.
+
+
+</br>
+</br>
+</br>
+</br>
+
 
 
 Created a new package using TypeScript for the NestJS project.
