@@ -16,7 +16,7 @@ export class RolesGuard implements CanActivate {
     return roles.includes(userRole);
   }
 
-  async canActivate(context: ExecutionContext) {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();
     const roles = this.reflector.get<string[]>(ROLES_METADATA_KEY, context.getHandler());
     if (!roles) {
@@ -45,10 +45,3 @@ export class RolesGuard implements CanActivate {
     return true
   }
 }
-
-
-
-
-
-
-
