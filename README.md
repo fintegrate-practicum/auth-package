@@ -7,7 +7,10 @@ To install the package, use the following command:
 ```bash
 npm install fintegrate-auth@1.0.122
 ```
+>נר<
 ## Usage
+<br>
+
 make sure to add the following environment variable in your project:
 
 ```bash
@@ -15,11 +18,13 @@ VITE_DOCKER_WORKERS_SERVER_URL=http://host.docker.internal:4006
 ```
 
 
+<br>
 
 ###  Authenticate the user:
 
 Use the `@UseGuards(AuthGuard('jwt'))` decorator in your controller to protect routes.
 
+<br>
 
 
 ### Authorization by user role:
@@ -36,16 +41,19 @@ import { Role, Roles, RolesGuard } from "fintegrate-auth";
 
 ```
 
-
-This ensures that only users with the appropriate roles can access certain routes.
-
 #### Eg:
 <pre>@Roles(Role.Admin)<br>
 @UseGuards(AuthGuard('jwt'), RolesGuard)</pre>
+<br>
 
 
-**Note**: Role management is not yet available for general use (in testing).
+This ensures that only users with the appropriate roles can access certain routes.
 
+<br>
+<br>
+
+
+ ⚠️    **Note**: Role management is not yet available for general use (in testing).
 
 ### Features
 
