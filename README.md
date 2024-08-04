@@ -41,7 +41,7 @@ import { Role, Roles, RolesGuard } from "fintegrate-auth";
 
 ```
 
-#### Eg:
+#### Example:
 <pre>@Roles(Role.Admin)<br>
 @UseGuards(AuthGuard('jwt'), RolesGuard)</pre>
 <br>
