@@ -5,7 +5,6 @@ import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { ExecutionContext } from '@nestjs/common';
 import { of, throwError } from 'rxjs';
-import { AxiosResponse } from 'axios';
 
 describe('RolesGuard', () => {
     let rolesGuard: RolesGuard;
@@ -93,6 +92,32 @@ describe('RolesGuard', () => {
                 new HttpException('User role not found', HttpStatus.UNAUTHORIZED)
             );
         });
+        it('should throw HttpException if user role does not match the required roles', async () => {
+            const mockContext = {
+                switchToHttp: jest.fn().mockReturnThis(),
+                getRequest: jest.fn().mockReturnValue({
+                    user: { _id: 'userId' },
+                    params: { linkUID: 'someLinkUID' },
+                }),
+                getHandler: jest.fn().mockReturnValue('handler'),
+                getClass: jest.fn().mockReturnValue('class'),
+            } as unknown as ExecutionContext;
+
+            jest.spyOn(httpService, 'get').mockReturnValue(of({
+                data: {
+                    data: {
+                        role: 'employee',
+                    }
+                }
+            }) as any);
+    
+            jest.spyOn(reflector, 'get').mockReturnValue(['requiredRole']);
+    
+            await expect(rolesGuard.canActivate(mockContext)).rejects.toThrow(
+                new HttpException('Forbidden', HttpStatus.FORBIDDEN)
+            );
+        });
+
         it('should return true if user role is found and matches the required roles', async () => {
             const mockContext = {
                 switchToHttp: jest.fn().mockReturnThis(),
