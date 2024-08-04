@@ -8,6 +8,12 @@ To install the package, use the following command:
 npm install fintegrate-auth@1.0.122
 ```
 ## Usage
+Environment Variable
+Before using the package, make sure to add the following environment variable in your project:
+
+```bash
+VITE_DOCKER_WORKERS_SERVER_URL=http://host.docker.internal:4006
+```
 
 ### Apply the Guard
 
