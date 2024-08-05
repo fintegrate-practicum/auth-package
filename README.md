@@ -7,7 +7,7 @@ To install the package, use the following command:
 ```bash
 npm install fintegrate-auth@1.0.122
 ```
->נר<
+
 ## Usage
 <br>
 
