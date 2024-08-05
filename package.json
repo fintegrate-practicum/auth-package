@@ -1,6 +1,6 @@
 {
   "name": "fintegrate-auth",
-  "version": "1.0.122-beta.0",
+  "version": "1.0.125-beta.36",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
