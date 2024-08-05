@@ -1,7 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext, HttpException, HttpStatus } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { HttpService } from "@nestjs/axios";
-import { ROLES_METADATA_KEY } from "../decorators/role-authorization.decorator"
+import { ROLES_METADATA_KEY } from "../decorators/roles.decorator"
 import { AxiosResponse } from 'axios';
 import { firstValueFrom } from 'rxjs';
 
