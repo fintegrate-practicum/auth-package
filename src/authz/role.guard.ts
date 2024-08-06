@@ -23,7 +23,7 @@ export class RolesGuard implements CanActivate {
       return true;
     }
 
-    const serverUrl = process.env.VITE_DOCKER_WORKERS_SERVER_URL;
+    const serverUrl = process.env.VITE_DOCKER_INFRA_SERVER_URL;
     const user = req.user;
     const businessId = req.params.linkUID;
     if (!businessId) {

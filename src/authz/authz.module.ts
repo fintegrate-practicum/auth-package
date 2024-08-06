@@ -5,7 +5,6 @@ import { PassportModule } from "@nestjs/passport";
 import { HttpModule } from "@nestjs/axios";
 
 @Module({
-
   imports: [PassportModule.register({ defaultStrategy: "jwt" }), HttpModule],
   providers: [JwtStrategy, RolesGuard],
   exports: [PassportModule],
