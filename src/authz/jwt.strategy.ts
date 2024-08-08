@@ -40,11 +40,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       throw new HttpException("Invalid audience.", HttpStatus.UNAUTHORIZED);
     }
     try {
-      const serverUrl = process.env.VITE_DOCKER_WORKERS_SERVER_URL;
+      const serverUrl = process.env.VITE_DOCKER_INFRA_SERVER_URL;
       const response: AxiosResponse = await firstValueFrom(
         this.httpService.get<User>(`${serverUrl}/user/${sub}`)
       );
-      const user: User = response?.data.data;
+      const user: User = response?.data;
       return user;
     }
     catch (error) {
