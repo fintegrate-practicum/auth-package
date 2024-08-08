@@ -105,9 +105,7 @@ describe('RolesGuard', () => {
 
             jest.spyOn(httpService, 'get').mockReturnValue(of({
                 data: {
-                    data: {
-                        role: 'employee',
-                    }
+                    role: 'employee',
                 }
             }) as any);
     
@@ -131,9 +129,7 @@ describe('RolesGuard', () => {
     
             jest.spyOn(httpService, 'get').mockReturnValue(of({
                 data: {
-                    data: {
-                        role: 'role'
-                    }
+                    role: 'role'
                 }
             }) as any);
     

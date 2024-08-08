@@ -48,7 +48,7 @@ describe('JwtStrategy', () => {
 
     const mockUser = { id: '1234567890', userEmail: 'test@example.com' };
     const response: Partial<AxiosResponse> = {
-      data: { data: mockUser },
+      data: mockUser ,
     };
     jest.spyOn(httpService, 'get').mockReturnValue(of(response as AxiosResponse));
 
@@ -61,9 +61,12 @@ describe('JwtStrategy', () => {
       aud: process.env.AUTH0_AUDIENCE,
       sub: '1234567890',
     };
-    
+
     const result = await jwtStrategy.validate(payload);
-    expect(result).not.toMatchObject({ name: expect.any(String), email: expect.any(String) });
+    expect(result).not.toMatchObject({
+      name: expect.any(String),
+      email: expect.any(String),
+    });
     expect(result).toEqual({ id: payload.sub });
   });
   

@@ -23,7 +23,7 @@ export class RolesGuard implements CanActivate {
       return true;
     }
 
-    const serverUrl = process.env.VITE_DOCKER_WORKERS_SERVER_URL;
+    const serverUrl = process.env.VITE_DOCKER_INFRA_SERVER_URL;
     const user = req.user;
     const businessId = req.params.linkUID;
     if (!businessId) {
@@ -36,9 +36,12 @@ export class RolesGuard implements CanActivate {
     const response: AxiosResponse = await firstValueFrom(
       this.httpService.get(`${serverUrl}/user/${user._id}/business/${businessId}`)
     );
-    const userRole: string = response.data.data.role;
+    const userRole: string = response.data.role;
     if (!userRole)
-      throw new HttpException(response.data.data.message, HttpStatus.UNAUTHORIZED);
+      throw new HttpException(
+        response.data.message,
+        HttpStatus.UNAUTHORIZED,
+      );
     if (!this.matchRoles(roles, userRole)) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
