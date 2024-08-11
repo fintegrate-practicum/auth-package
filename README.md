@@ -50,7 +50,14 @@ add the the HttpModule to imports array in the module.
 <br>
 
 
-This ensures that only users with the appropriate roles can access certain routes.
+This ensures that only users with the appropriate roles can access certain routes.  
+<br>
+
+⚠️  Note:  
+  
+Role-based access control using the @Roles decorator is applicable only for routes that include a businessId parameter.  
+This means that role-based permissions are only enforced if the user is logged into a specific business.  
+
 
 <br>
 
