@@ -37,6 +37,12 @@ make sure to import the above:
 import { Role, Roles, RolesGuard } from "fintegrate-auth";
 
 ```
+Additionally, ensure that the HttpModule is imported in the module containing your controller:  
+```bash
+import { HttpModule } from '@nestjs/axios';
+
+```
+add the the HttpModule to imports array in the module.
 
 #### Example:
 <pre>@Roles(Role.Admin)<br>
@@ -46,7 +52,6 @@ import { Role, Roles, RolesGuard } from "fintegrate-auth";
 
 This ensures that only users with the appropriate roles can access certain routes.
 
-<br>
 <br>
 
 
