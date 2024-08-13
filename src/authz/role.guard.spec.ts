@@ -5,6 +5,7 @@ import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import { ExecutionContext } from '@nestjs/common';
 import { of, throwError } from 'rxjs';
+import { Role } from '../decorators/role.enum';
 
 describe('RolesGuard', () => {
     let rolesGuard: RolesGuard;
@@ -41,12 +42,13 @@ describe('RolesGuard', () => {
                 getRequest: jest.fn().mockReturnValue({
                     user: { _id: 'userId' },
                     params: {}, // No linkUID
+                    headers: { authorization: 'some-internal-secret' },
                 }),
                 getHandler: jest.fn().mockReturnValue('handler'),
                 getClass: jest.fn().mockReturnValue('class'),
             } as unknown as ExecutionContext;
 
-            jest.spyOn(reflector, 'get').mockReturnValue(['role']); 
+            jest.spyOn(reflector, 'get').mockReturnValue(['role']);
 
             await expect(rolesGuard.canActivate(mockContext)).rejects.toThrow(
                 new HttpException('User is not associated with any business', HttpStatus.FORBIDDEN)
@@ -59,9 +61,10 @@ describe('RolesGuard', () => {
                 getRequest: jest.fn().mockReturnValue({
                     user: null, // No user
                     params: { linkUID: 'someLinkUID' },
+                    headers: { authorization: 'some-internal-secret' },
                 }),
                 getHandler: jest.fn().mockReturnValue('handler'),
-                getClass: jest.fn().mockReturnValue('class'), 
+                getClass: jest.fn().mockReturnValue('class'),
             } as unknown as ExecutionContext;
 
             jest.spyOn(reflector, 'get').mockReturnValue(['role']);
@@ -77,8 +80,9 @@ describe('RolesGuard', () => {
                 getRequest: jest.fn().mockReturnValue({
                     user: { _id: 'userId' },
                     params: { linkUID: 'someLinkUID' },
+                    headers: { authorization: 'some-internal-secret' },
                 }),
-                getHandler: jest.fn().mockReturnValue('handler'), 
+                getHandler: jest.fn().mockReturnValue('handler'),
                 getClass: jest.fn().mockReturnValue('class'),
             } as unknown as ExecutionContext;
 
@@ -98,6 +102,7 @@ describe('RolesGuard', () => {
                 getRequest: jest.fn().mockReturnValue({
                     user: { _id: 'userId' },
                     params: { linkUID: 'someLinkUID' },
+                    headers: { authorization: 'some-internal-secret' },
                 }),
                 getHandler: jest.fn().mockReturnValue('handler'),
                 getClass: jest.fn().mockReturnValue('class'),
@@ -108,9 +113,9 @@ describe('RolesGuard', () => {
                     role: 'employee',
                 }
             }) as any);
-    
+
             jest.spyOn(reflector, 'get').mockReturnValue(['requiredRole']);
-    
+
             await expect(rolesGuard.canActivate(mockContext)).rejects.toThrow(
                 new HttpException('Forbidden', HttpStatus.FORBIDDEN)
             );
@@ -122,22 +127,43 @@ describe('RolesGuard', () => {
                 getRequest: jest.fn().mockReturnValue({
                     user: { _id: 'userId' },
                     params: { linkUID: 'someLinkUID' },
+                    headers: { authorization: 'some-internal-secret' },
                 }),
                 getHandler: jest.fn().mockReturnValue('handler'),
                 getClass: jest.fn().mockReturnValue('class'),
             } as unknown as ExecutionContext;
-    
+
             jest.spyOn(httpService, 'get').mockReturnValue(of({
                 data: {
                     role: 'role'
                 }
             }) as any);
-    
+
             jest.spyOn(reflector, 'get').mockReturnValue(['role']);
-    
+
             const result = await rolesGuard.canActivate(mockContext);
-    
+
             expect(result).toBe(true);
-        });    
+        });
+        it('should return true if the authorization token matches INTERNAL_SECRET and user role is Internal', async () => {
+            const mockContext = {
+                switchToHttp: jest.fn().mockReturnThis(),
+                getRequest: jest.fn().mockReturnValue({
+                    user: { _id: 'userId' },
+                    params: { linkUID: 'someLinkUID' },
+                    headers: { authorization: process.env.INTERNAL_SECRET }, 
+                }),
+                getHandler: jest.fn().mockReturnValue('handler'),
+                getClass: jest.fn().mockReturnValue('class'),
+            } as unknown as ExecutionContext;
+
+            const requiredRoles = [Role.Internal];
+            jest.spyOn(reflector, 'get').mockReturnValue(requiredRoles);
+
+            const result = await rolesGuard.canActivate(mockContext);
+
+            expect(result).toBe(true);
+        });
+
     });
 });
