@@ -27,8 +27,7 @@ export class RolesGuard implements CanActivate {
     }
 
     if (req.headers.authorization === process.env.INTERNAL_SECRET) {
-      userRole = Role.Internal;
-      return this.matchRoles(roles, userRole)
+      return this.matchRoles(roles, Role.Internal)
     }
 
     const serverUrl = process.env.VITE_DOCKER_INFRA_SERVER_URL;
