@@ -7,6 +7,8 @@ import { ExecutionContext } from '@nestjs/common';
 import { of, throwError } from 'rxjs';
 import { Role } from '../decorators/role.enum';
 
+process.env.INTERNAL_SECRET = 'internal-secret';
+
 describe('RolesGuard', () => {
     let rolesGuard: RolesGuard;
     let reflector: Reflector;
