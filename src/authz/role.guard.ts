@@ -20,7 +20,6 @@ export class RolesGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();
     const roles = this.reflector.get<string[]>(ROLES_METADATA_KEY, context.getHandler());
-    let userRole: string;
 
     if (!roles) {
       return true;
@@ -43,7 +42,7 @@ export class RolesGuard implements CanActivate {
     const response: AxiosResponse = await firstValueFrom(
       this.httpService.get(`${serverUrl}/user/${user._id}/business/${businessId}`)
     );
-    userRole = response.data.role;
+    const userRole = response.data.role;
     if (!userRole)
       throw new HttpException(
         response.data.message,
