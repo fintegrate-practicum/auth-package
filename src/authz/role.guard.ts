@@ -42,7 +42,7 @@ export class RolesGuard implements CanActivate {
     const response: AxiosResponse = await firstValueFrom(
       this.httpService.get(`${serverUrl}/user/${user._id}/business/${businessId}`)
     );
-    const userRole = response.data.role;
+    const userRole: string = response.data.role;
     if (!userRole)
       throw new HttpException(
         response.data.message,
