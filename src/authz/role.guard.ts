@@ -4,6 +4,7 @@ import { HttpService } from "@nestjs/axios";
 import { ROLES_METADATA_KEY } from "../decorators/roles.decorator"
 import { AxiosResponse } from 'axios';
 import { firstValueFrom } from 'rxjs';
+import { Role } from '../decorators/role.enum';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -19,8 +20,13 @@ export class RolesGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();
     const roles = this.reflector.get<string[]>(ROLES_METADATA_KEY, context.getHandler());
+
     if (!roles) {
       return true;
+    }
+
+    if (req.headers.authorization === process.env.INTERNAL_SECRET) {
+      return this.matchRoles(roles, Role.Internal)
     }
 
     const serverUrl = process.env.VITE_DOCKER_INFRA_SERVER_URL;
