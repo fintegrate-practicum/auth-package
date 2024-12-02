@@ -1,7 +1,7 @@
 # `fintegrate-auth`
-<br>
-### `fintegrate-auth` is a package for managing user authentication and authorization in NestJS applications.
-### It helps you secure your application by verifying user identity and controlling access based on user roles.<br><br><br>  
+**`fintegrate-auth` is a package for managing user authentication and authorization in NestJS applications.**  
+**It helps you secure your application by verifying user identity and controlling access based on user roles.**
+<br><br>
   
 ## Installation
 
@@ -10,10 +10,11 @@ To install the package, use the following command:
 ```bash
 npm install fintegrate-auth
 ```
-<br><br><br>
-## Usage
 <br>
-###  Authenticate the user:
+
+## Usage
+
+### Authenticate the user:
 
 Use the `@UseGuards(AuthGuard('jwt'))` decorator in your controller to protect routes.  
 This ensures that only authenticated users with a valid token can access the route,  
@@ -30,19 +31,19 @@ add `RolesGuard` in the UseGuards decorator.
 make sure to import the above:
 
 ```bash
-import { Role, Roles, RolesGuard } from "fintegrate-auth";
+import { Role, Roles, RolesGuard } from "fintegrate-auth"
 
 ```
 Additionally, ensure that the HttpModule is imported in the module containing your controller:  
 ```bash
-import { HttpModule } from '@nestjs/axios';
+import { HttpModule } from '@nestjs/axios'
 
 ```
 add the the HttpModule to imports array in the module.
 
 #### Example:
-<pre>@Roles(Role.Admin)<br>
-@UseGuards(AuthGuard('jwt'), RolesGuard)</pre>
+`@Roles(Role.Admin)`<br>
+`@UseGuards(AuthGuard('jwt'), RolesGuard)`
 <br>
 
 
