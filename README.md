@@ -1,7 +1,5 @@
 # `fintegrate-auth`
 <br>
-
-
 ### `fintegrate-auth` is a package for managing user authentication and authorization in NestJS applications.
 ### It helps you secure your application by verifying user identity and controlling access based on user roles.<br><br><br>  
   
@@ -15,8 +13,6 @@ npm install fintegrate-auth
 <br><br><br>
 ## Usage
 <br>
-
-
 ###  Authenticate the user:
 
 Use the `@UseGuards(AuthGuard('jwt'))` decorator in your controller to protect routes.  
