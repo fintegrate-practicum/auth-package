@@ -1,7 +1,7 @@
 # `fintegrate-auth`
 **`fintegrate-auth` is a package for managing user authentication and authorization in NestJS applications.**  
 **It helps you secure your application by verifying user identity and controlling access based on user roles.**
-<br><br>
+<br>
   
 ## Installation
 
@@ -10,8 +10,6 @@ To install the package, use the following command:
 ```bash
 npm install fintegrate-auth
 ```
-<br>
-
 ## Usage
 
 ### Authenticate the user:
